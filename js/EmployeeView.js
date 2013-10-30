@@ -51,22 +51,24 @@ var EmployeeView = function(employee) {
 			return;
 		}
 		var options = {
-			quality : 50,
-			destinationType : Camera.DestinationType.DATA_URL,
-			sourceType : 1, // 0:Photo Library, 1=Camera, 2=Saved Photo Album
-			encodingType : 0 // 0=JPG 1=PNG
-		};
-
-		navigator.camera.getPicture(function(imageData) {
-			$('.employee-image', this.el).attr('src', "data:image/jpeg;base64," + imageData);
-		}, function() {
-			app.showAlert('Error taking picture', 'Error');
-		}, options);
-
-		return false;
+		quality : 30,
+		destinationType : Camera.DestinationType.DATA_URL,
+		sourceType : Camera.PictureSourceType.CAMERA, // 0:Photo Library, 1=Camera, 2=Saved Photo Album
+		encodingType : Camera.EncodingType.PNG, // 0=JPG 1=PNG
+		targetWidth: 100,
+		targetHeight: 100,
 	};
 
-	this.initialize();
+	navigator.camera.getPicture(function(imageData) {
+		$('.employee-image', this.el).attr('src', "data:image/jpeg;base64," + imageData);
+	}, function() {
+		app.showAlert('Error taking picture', 'Error');
+	}, options);
+
+	return false;
+};
+
+this.initialize();
 
 };
 
